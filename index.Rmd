@@ -110,10 +110,10 @@ After annotation in [Adobe Illustrator](http://www.adobe.com/products/illustrato
 # create GIF with fade transition between full and partial timelines
 system("convert -delay 20 denial_frames/*.jpg -morph 8 denial.gif")
 
-# increase delay on first frame
+# increase delay on final frame
 system("convert denial.gif \\( +clone -set delay 300 \\) +swap +delete  denial_with_pause.gif")
 
-# increase delay on final frame
+# increase delay on first frame
 system("convert denial_with_pause.gif \\( -clone 0  -set delay 300 \\) -swap 0,-1 +delete denial_with_pause.gif")
 ```
 
