@@ -8,9 +8,9 @@ opts_chunk$set(out.width="625px", dpi=300)
 [R](https://www.r-project.org/) code for the analysis supporting [this December 20, 2016 BuzzFeed News article](https://www.buzzfeed.com/peteraldhous/another-hottest-year) on the likelihood that 2016 will be the warmest year on record, and how that is being spun by deniers of climate science. Supporting files are in [this GitHub repository](https://github.com/BuzzFeedNews/2016-12-warmest-year).
 
 ## Data preparation
-The following code loads [data on the average global temperature ](https://www.ncdc.noaa.gov/cag/time-series/global/globe/land_ocean/p12/12/1880-2016) from the National Oceanic and Atmospheric Adminstration for each month since January 1880, recorded as the difference from the global average for the 20th century.
+The following code loads [data on the average global temperature ](https://www.ncdc.noaa.gov/cag/time-series/global/globe/land_ocean/p12/12/1880-2016) from the National Oceanic and Atmospheric Adminstration for each month since January 1880.
 
-It creates the columns `Year`, `Date` (to plot the entire temperature timeline),  `Date_2016` (with the monthly data for each year transposed to 2016, allowing all the data to be readily plotted on one yearly plot), and `Weight` (to allow the data for 2016 to be distinguished in the initial animation). 
+It creates the columns `Year`, `Date` (to plot the entire temperature timeline),  `Date_2016` (with the monthly data for each year transposed to 2016, allowing all the data to be readily plotted on one yearly plot), and `Weight` (to allow the data for 2016 to be distinguished in the initial animation). The column `Value` gives the global average temperature, recorded as the difference from the global average for the 20th century for each month.
 
 ```{r, results="hide", warning=FALSE, message=FALSE}
 # load required packages
@@ -28,7 +28,7 @@ global_temp <- read_csv("https://www.ncdc.noaa.gov/cag/time-series/global/globe/
          Date_2016 = as.Date(paste0("2016-",
                                substr(Yr_Mo,5,6),
                                "-01")),
-         Weight = ifelse(Year==2016,2,1))
+         Weight = ifelse(Year == 2016,2,1))
 ```
 
 ## Charts
@@ -102,9 +102,9 @@ part_series <- ggplot(slice(global_temp, 1635:1643), aes(x=Date, y=Value, color 
 plot(part_series)
 ```
 
-### Second animation, showing how climate denialists are spinning the data
+### Second animation, showing how climate deniers are spinning the data
 
-After annotation in [Adobe Illustrator](http://www.adobe.com/products/illustrator.html) and saving the two timelines in a folder called `denial_frames`, this code creates the second animation in the post. (Here, the code to create the first timeline omitted the grid line and tick mark at -0.5ºC, to keep the size of the plot panels consistent.)
+After annotation in [Adobe Illustrator](http://www.adobe.com/products/illustrator.html) and saving the two timelines in a folder called `denial_frames`, this code creates the second animation in the article.
 
 ```{r, warning=FALSE, message=FALSE}
 # create GIF with fade transition between full and partial timelines
